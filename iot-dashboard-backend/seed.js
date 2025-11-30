@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const db = require('./src/config/db'); // Importa tu conexión a la DB
 
 const INITIAL_USERNAME = 'admin';
-const INITIAL_PASSWORD = 'supersecurepassword'; // ¡Cámbiala para producción!
+const INITIAL_PASSWORD = 'DaM20889.'; // ¡Cámbiala para producción!
 const INITIAL_ROLE = 'Admin';
 const SALT_ROUNDS = 10; // Nivel de seguridad de Bcrypt
 
