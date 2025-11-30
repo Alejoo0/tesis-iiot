@@ -9,7 +9,7 @@ services:
       - PORT=3000
       - DB_HOST=postgres
       - DB_USER=iot_user
-      - DB_PASSWORD=tu_password_postgres
+      - DB_PASSWORD=admin
       - DB_NAME=iot_db
       - INFLUX_URL=http://influxdb:8086
       - INFLUX_TOKEN=TU_TOKEN_LARGO_AQUI
