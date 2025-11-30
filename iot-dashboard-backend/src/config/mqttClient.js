@@ -2,7 +2,7 @@ const mqtt = require('mqtt');
 require('dotenv').config();
 
 // Conectamos a localhost porque Mosquitto expone el puerto 1883 a tu PC
-const client = mqtt.connect(import.meta.env.MQTT_URL);
+const client = mqtt.connect(process.env.MQTT_URL);
 
 client.on('connect', () => {
   console.log('Backend conectado a Mosquitto MQTT');
