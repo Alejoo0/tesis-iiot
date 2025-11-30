@@ -1,0 +1,99 @@
+services:
+  backend:
+    build: ./iot-dashboard-backend
+    container_name: iot-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=postgres
+      - DB_USER=iot_user
+      - DB_PASSWORD=tu_password_postgres
+      - DB_NAME=iot_db
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=TU_TOKEN_LARGO_AQUI
+      - INFLUX_ORG=tesis_org
+      - INFLUX_BUCKET=plantas_bucket
+      - JWT_SECRET=1234
+    depends_on:
+      - postgres
+      - influxdb
+      - mosquitto
+    networks:
+      - iot-net
+
+  frontend:
+    build: ./iot-dashboard-frontend
+    container_name: iot-frontend
+    restart: always
+    ports:
+      - "80:80" 
+    depends_on:
+      - backend
+    networks:
+      - iot-net
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: mosquitto
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - iot-net
+
+  influxdb:
+    image: influxdb:2.0
+    container_name: influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb2_data:/var/lib/influxdb2
+    networks:
+      - iot-net
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: iot_user
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: iot_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - iot-net
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: always
+    ports:
+      - "1880:1880"
+    volumes:
+      - node_red_data:/data
+    environment:
+      - TZ=America/Santiago
+    networks:
+      - iot-net
+    depends_on:
+      - influxdb
+      - mosquitto
+
+networks:
+  iot-net:
+    driver: bridge
+
+volumes:
+  influxdb2_data:
+  node_red_data:
+  postgres_data:
