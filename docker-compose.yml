@@ -24,11 +24,7 @@ services:
       - iot-net
 
   frontend:
-    build:
-      context: ./iot-dashboard-frontend  # Carpeta del código
-      args:                              # <--- INDENTADO DENTRO DE BUILD
-        - VITE_API_BASE_URL=${VITE_API_BASE_URL}
-    container_name: iot-frontend
+    build: ./iot-dashboard-frontend 
     restart: always
     ports:
       - "80:80" 
