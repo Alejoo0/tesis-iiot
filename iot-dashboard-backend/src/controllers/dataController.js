@@ -18,8 +18,8 @@ exports.getMachineData = async (req, res) => {
   const stop = req.query.end || 'now()';
   const measurement = req.query.measurement || 'telemetry'; // Por si acaso
 
-  console.log(`📡 Buscando ${machineId}. Rango: ${start} a ${stop}`);
-  console.log(`📡 Buscando: ${machineId} en tabla: ${measurement}`);
+  console.log(`Buscando ${machineId}. Rango: ${start} a ${stop}`);
+  console.log(`Buscando: ${machineId} en tabla: ${measurement}`);
   
   const fluxQuery = `
     from(bucket: "${bucket}")
@@ -48,7 +48,7 @@ exports.getMachineData = async (req, res) => {
     res.json({ device: machineId, data: data });
 
   } catch (error) {
-    console.error('❌ Error Influx:', error);
+    console.error('Error Influx:', error);
     res.status(500).json({ message: 'Error interno' });
   }
 };

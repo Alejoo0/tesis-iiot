@@ -13,7 +13,7 @@ async function seedUser() {
     // 1. Verificar si el usuario ya existe
     const checkUser = await db.query('SELECT id FROM users WHERE username = $1', [INITIAL_USERNAME]);
     if (checkUser.rows.length > 0) {
-      console.log(`✅ Usuario '${INITIAL_USERNAME}' ya existe. Saltando creación.`);
+      console.log(`Usuario '${INITIAL_USERNAME}' ya existe. Saltando creación.`);
       return;
     }
 
@@ -31,12 +31,12 @@ async function seedUser() {
     
     const result = await db.query(queryText, values);
 
-    console.log(`✨ Usuario '${INITIAL_USERNAME}' creado exitosamente con ID: ${result.rows[0].id}`);
+    console.log(`Usuario '${INITIAL_USERNAME}' creado exitosamente con ID: ${result.rows[0].id}`);
     console.log(`   Rol: ${INITIAL_ROLE}`);
     console.log(`   Contraseña de prueba: ${INITIAL_PASSWORD}`);
 
   } catch (error) {
-    console.error('❌ Error durante la inicialización de usuarios:', error.message);
+    console.error('Error durante la inicialización de usuarios:', error.message);
   } finally {
     // Es crucial cerrar la conexión después de la operación
     // Nota: El 'pg' pool se cerrará al terminar el proceso de Node

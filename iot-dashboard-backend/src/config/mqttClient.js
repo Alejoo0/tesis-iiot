@@ -5,11 +5,11 @@ require('dotenv').config();
 const client = mqtt.connect('mqtt:34.134.43.78/:1883');
 
 client.on('connect', () => {
-  console.log('✅ Backend conectado a Mosquitto MQTT');
+  console.log('Backend conectado a Mosquitto MQTT');
 });
 
 client.on('error', (err) => {
-  console.error('❌ Error conexión MQTT:', err);
+  console.error('Error conexión MQTT:', err);
 });
 
 module.exports = client;

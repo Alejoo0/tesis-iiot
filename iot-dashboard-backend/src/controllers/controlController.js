@@ -20,27 +20,27 @@ exports.sendCommand = async (req, res) => {
   
   // Verificamos si el cliente MQTT está conectado
   if (!mqttClient.connected) {
-      console.error("❌ ERROR: El cliente MQTT del backend NO está conectado.");
+      console.error("ERROR: El cliente MQTT del backend NO está conectado.");
       return res.status(500).json({ message: "Error interno: Backend desconectado de MQTT" });
   }
 
   mqttClient.publish(topic, payload, async (err) => {
     if (err) {
-      console.error("❌ Error callback MQTT:", err);
+      console.error("Error callback MQTT:", err);
       return res.status(500).json({ message: "Error al publicar MQTT" });
     }
 
-    console.log(`3. 🚀 Comando enviado a MQTT (${topic}). Guardando en DB...`);
+    console.log(`3. Comando enviado a MQTT (${topic}). Guardando en DB...`);
 
     try {
       await db.query(
         'INSERT INTO audit_logs (username, machine_id, action, status) VALUES ($1, $2, $3, $4)',
         [username, machineId, action, 'SUCCESS']
       );
-      console.log("4. ✅ Guardado en DB exitoso.");
+      console.log("4. Guardado en DB exitoso.");
       res.json({ message: `Orden enviada` });
     } catch (dbError) {
-      console.error("❌ Error guardando en Base de Datos:", dbError.message);
+      console.error("Error guardando en Base de Datos:", dbError.message);
       // Respondemos éxito igual, porque la orden física SÍ salió
       res.json({ message: `Orden enviada (pero falló el log)` });
     }

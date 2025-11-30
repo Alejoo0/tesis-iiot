@@ -2,7 +2,7 @@ export const DEVICES = [
   {
     id: 'bomba01',
     name: 'Bomba de Riego',
-    measurement: 'BombaRiego',
+    measurement: 'BombaAgua',
     kpis: [
       { 
         key: 'flow_rate', 

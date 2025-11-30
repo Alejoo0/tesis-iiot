@@ -71,7 +71,7 @@ const LoginPage = () => {
           </Box>
           
           <Typography component="h1" variant="h4" gutterBottom>
-            Industrial IoT Platform
+            Plataforma de Supervisión Industrial 
           </Typography>
           <Typography variant="body1" color="textSecondary" mb={4}>
             Ingresa tus credenciales para acceder al monitoreo
