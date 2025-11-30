@@ -25,6 +25,10 @@ services:
 
   frontend:
     build: ./iot-dashboard-frontend
+    # --- AGREGAR ESTO ---
+    args:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+    # --------------------
     container_name: iot-frontend
     restart: always
     ports:
