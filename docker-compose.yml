@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./iot-dashboard-backend/.env
+      - .env
     depends_on:
       - postgres
       - influxdb
@@ -15,12 +15,13 @@ services:
       - iot-net
 
   frontend:
-    build: ./iot-dashboard-frontend 
+    build: 
+      context: ./iot-dashboard-frontend 
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL}
     restart: always
     ports:
       - "80:80" 
-    env_file:
-      - ./iot-dashboard-frontend/.env
     depends_on:
       - backend
     networks:
